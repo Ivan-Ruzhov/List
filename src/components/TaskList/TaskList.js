@@ -5,7 +5,12 @@ import {Task} from "../Task";
 
 
 class TaskList extends Component {
+    static defaultProps = {
+        filterTask: {
 
+        },
+
+    }
     render() {
         const {filterTask, onLabel, onDelete} = this.props
         const elements = [...filterTask].map((item) => {

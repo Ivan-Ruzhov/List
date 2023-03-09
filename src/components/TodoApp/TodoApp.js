@@ -10,13 +10,11 @@ import './TodoApp.css'
          super(props);
          this.state = {
              arrTask : [
-                 {completed: false, checked: false, editing: false,  id: 1, text: 'Completed task'},
-                 {completed: false, checked: false, editing: false,  id: 2, text: 'Editing task'},
-                 {completed: false, checked: false, editing: false,  id: 3, text: 'Active task'}
+                 {completed: false,  editing: false,  id: 1, text: 'Completed task'},
+                 {completed: false,  editing: false,  id: 2, text: 'Editing task'},
+                 {completed: false,  editing: false,  id: 3, text: 'Active task'}
              ],
-             filterTask : [
-
-             ]
+             filterTask : [],
          }
          this.state.filterTask = this.state.arrTask
      }
@@ -24,10 +22,10 @@ import './TodoApp.css'
 
 
      onLabel = (id) => {
-         this.setState(({arrTask, filterTask}) => {
+         this.setState(({arrTask}) => {
              const idx = arrTask.findIndex((el) => el.id === id)
              const oldItem = arrTask[idx];
-             const newItem = {...oldItem, completed: !oldItem.completed, checked: !oldItem.checked}
+             const newItem = {...oldItem, completed: !oldItem.completed}
              const newArr = [
                  ...this.state.arrTask.slice(0,idx),
                  newItem,
@@ -40,7 +38,7 @@ import './TodoApp.css'
          })
      }
      onDelete = (id) => {
-         this.setState(({arrTask,filterTask}) => {
+         this.setState(({arrTask}) => {
              const idx = arrTask.findIndex((el) => el.id === id)
              const newArr = [
                  ...this.state.arrTask.slice(0,idx),
@@ -66,7 +64,7 @@ import './TodoApp.css'
 
      onAdd =  (text) => {
          const newItem =  this.onCreate(text);
-         this.setState(({arrTask, filterTask}) => {
+         this.setState(({arrTask}) => {
              const newArr = [
                  ...arrTask,
                  newItem
@@ -80,7 +78,7 @@ import './TodoApp.css'
      }
 
      onClearCompleted = () => {
-        this.setState(({arrTask,filterTask}) => {
+        this.setState(({arrTask}) => {
             const arr = arrTask.filter((el) => !el.completed)
             return {
                 arrTask: arr,
@@ -101,8 +99,7 @@ import './TodoApp.css'
      }
 
     fillerAll = () => {
-        this.setState(({arrTask, filterTask}) => {
-            console.log(arrTask)
+        this.setState(({arrTask}) => {
             return {
                 filterTask: arrTask
             }
