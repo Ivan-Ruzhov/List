@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import './Task.css';
 
-
 class Task extends Component {
 
     render() {
@@ -13,10 +12,9 @@ class Task extends Component {
             className = ''
         }
         return(
-
-            <li key = {id} className={className} >
+            <li className={className} >
             <div className='view'>
-                <input  className='toggle' type="checkbox" onClick={() => {onLabel(id)}} checked={checked}/>
+                <input  className='toggle' type="checkbox" onChange={() => {onLabel(id)}} checked={checked}/>
                 <label onClick={() => {onLabel(id)}}>
                     <span className='description'>
                         {text}

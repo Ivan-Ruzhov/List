@@ -7,10 +7,10 @@ import {Task} from "../Task";
 class TaskList extends Component {
 
     render() {
-        const {arrTask, onLabel, onDelete} = this.props
-        const elements = arrTask.map((item) => {
+        const {filterTask, onLabel, onDelete} = this.props
+        const elements = [...filterTask].map((item) => {
             return (
-                <Task  {...item} onLabel = {onLabel} onDelete = {onDelete}/>
+                <Task key = {item.id} {...item} onLabel = {onLabel} onDelete = {onDelete} />
             )
         })
         return(
