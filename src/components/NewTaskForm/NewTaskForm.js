@@ -7,7 +7,7 @@ class  NewTaskForm  extends Component  {
         onAdd: PropTypes.func
     }
     static defaultProps = {
-        onAdd: () => {}
+       onAdd: () => {}
     }
     state = {
         text : ''

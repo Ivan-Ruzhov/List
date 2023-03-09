@@ -39,7 +39,7 @@ class Task extends Component {
     }
 
     render() {
-        const  {completed, editing, id, text, onLabel, onDelete, onEdit, onChangeEdit} = this.props
+        const  {completed, editing, id, text, onLabel, onDelete, onEdit} = this.props
         let className = '';
         if(completed) {
             className = 'completed'

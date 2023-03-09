@@ -85,8 +85,10 @@ import './TodoApp.css'
      }
 
      filterActive = () => {
-        this.setState(({arrTask, filterTask}) => {
-            filterTask = arrTask
+         this.setState({
+             filterTask: this.state.arrTask
+         })
+        this.setState(({ filterTask}) => {
             const newArr = filterTask.filter((el) => !el.completed)
             return {
                 filterTask: newArr
@@ -102,8 +104,11 @@ import './TodoApp.css'
         })
     }
     filterCompleted = () => {
-        this.setState(({arrTask, filterTask}) => {
-            filterTask = arrTask
+        this.setState({
+            filterTask: this.state.arrTask
+        })
+        this.setState(({ filterTask}) => {
+
             const newArr = filterTask.filter((el) => el.completed)
             return {
                 filterTask: newArr
