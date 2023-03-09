@@ -5,21 +5,17 @@ import {Footer} from "../Footer";
 import './TodoApp.css'
 
  class TodoApp extends Component {
-    id = 3
+    id = 0
      constructor(props) {
          super(props);
          this.state = {
              arrTask : [
-                 {completed: false,  editing: false,  id: 1, text: 'Completed task'},
-                 {completed: false,  editing: false,  id: 2, text: 'Editing task'},
-                 {completed: false,  editing: false,  id: 3, text: 'Active task'}
+
              ],
              filterTask : [],
          }
          this.state.filterTask = this.state.arrTask
      }
-
-
 
      onLabel = (id) => {
          this.setState(({arrTask}) => {
@@ -49,7 +45,7 @@ import './TodoApp.css'
                  filterTask: newArr
              }
          })
-
+        this.id--
      }
 
      onCreate = (text) => {
@@ -114,6 +110,41 @@ import './TodoApp.css'
             }
         })
     }
+
+    onEdit = (id) => {
+        this.setState(({arrTask}) => {
+            const idx = arrTask.findIndex((el) => el.id === id)
+            const oldItem = arrTask[idx];
+            const newItem = {...oldItem, editing: true}
+            const newArr = [
+                ...this.state.arrTask.slice(0,idx),
+                newItem,
+                ...this.state.arrTask.slice(idx+1)
+            ]
+            return {
+                arrTask: newArr,
+                filterTask: newArr
+            }
+        })
+    }
+
+    onChangeEdit = ( id , text) => {
+        this.setState(({arrTask}) => {
+            const idx = arrTask.findIndex((el) => el.id === id)
+            const oldItem = arrTask[idx];
+            const newItem = {...oldItem, editing: false, text: text}
+            const newArr = [
+                ...this.state.arrTask.slice(0,idx),
+                newItem,
+                ...this.state.arrTask.slice(idx+1)
+            ]
+            return {
+                arrTask: newArr,
+                filterTask: newArr
+            }
+        })
+    }
+
     render () {
         const unfinishedCount = this.state.arrTask.filter((el) => !el.completed).length
         const {filterTask} = this.state
@@ -121,7 +152,11 @@ import './TodoApp.css'
             <section className='todoapp'>
                 <NewTaskForm onAdd = {this.onAdd}/>
                 <section className='main'>
-                    <TaskList filterTask ={filterTask} onLabel = {this.onLabel} onDelete = {this.onDelete} />
+                    <TaskList filterTask ={filterTask}
+                              onLabel = {this.onLabel}
+                              onDelete = {this.onDelete}
+                              onEdit = {this.onEdit}
+                              onChangeEdit = {this.onChangeEdit}/>
                     <Footer count = {unfinishedCount}
                             onClearCompleted={this.onClearCompleted}
                             filterActive = {this.filterActive}

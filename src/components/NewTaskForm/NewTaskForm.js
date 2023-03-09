@@ -1,9 +1,18 @@
 import React, {Component} from "react";
 import './NewTaskForm.css'
+import PropTypes from 'prop-types'
 class  NewTaskForm  extends Component  {
+
+    static propTypes = {
+        onAdd: PropTypes.func
+    }
+    static defaultProps = {
+        onAdd: () => {}
+    }
     state = {
         text : ''
     }
+    onAdd = this.props.onAdd
     onChange = (e) => {
         this.setState({
             text: e.target.value
@@ -11,11 +20,12 @@ class  NewTaskForm  extends Component  {
     }
     onSubmit = (e) => {
         e.preventDefault()
-        this.props.onAdd(this.state.text)
+        this.onAdd(this.state.text)
         this.setState({
             text: ''
         })
     }
+
     render(){
         return (
             <form className='header' onSubmit={this.onSubmit}>

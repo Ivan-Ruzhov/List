@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import './Task.css';
+import PropTypes from "prop-types";
+import { formatDistanceToNow } from 'date-fns'
+
 
 class Task extends Component {
     static defaultProps = {
@@ -10,11 +13,38 @@ class Task extends Component {
         onLabel: () => {},
         onDelete: () => {}
     }
+
+    static propTypes = {
+        completed: PropTypes.bool,
+        editing: PropTypes.bool,
+        id: PropTypes.number,
+        text: PropTypes.string,
+        onLabel: PropTypes.func.isRequired,
+        onDelete: PropTypes.func.isRequired,
+    }
+
+    state = {
+        text: this.props.text,
+    }
+
+    onChange = (e) => {
+        this.setState({
+            text: e.target.value
+        })
+    }
+    onSubmit = (e) => {
+        e.preventDefault()
+        this.props.onChangeEdit(this.props.id, this.state.text)
+
+    }
+
     render() {
-        const  {completed, editing, id, text, onLabel, onDelete} = this.props
+        const  {completed, editing, id, text, onLabel, onDelete, onEdit, onChangeEdit} = this.props
         let className = '';
         if(completed) {
             className = 'completed'
+        } else if(editing) {
+            className = 'editing'
         } else {
             className = ''
         }
@@ -27,16 +57,21 @@ class Task extends Component {
                         {text}
                     </span>
                     <span className='created'>
-                        created 17 seconds ago
+                        created {formatDistanceToNow(Date.now())}
                     </span>
                 </label>
-                <button className='icon icon-edit'></button>
+                <button className='icon icon-edit' onClick={() => {onEdit(id)}}></button>
                 <button className='icon icon-destroy'
                 onClick={() => {
                     onDelete(id)
                 }}></button>
             </div>
-                {editing === true ? (<input type="text" className="edit" value="Editing task"/>) : null}
+                {editing === true ? (
+                        <form onSubmit={this.onSubmit}>
+                            <input type="text" className="edit" value={this.state.text} onChange={this.onChange}/>
+                        </form>
+
+                ) : null}
             </li>
             );
     }
