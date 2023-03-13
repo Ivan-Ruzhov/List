@@ -1,2 +1,2 @@
-import {TaskFilter} from "./TaskFilter";
-export {TaskFilter}
+import { TaskFilter } from './TaskFilter'
+export { TaskFilter }

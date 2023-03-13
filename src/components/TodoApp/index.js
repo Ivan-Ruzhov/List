@@ -1,2 +1,2 @@
-import {TodoApp} from "./TodoApp";
-export {TodoApp}
+import { TodoApp } from './TodoApp'
+export { TodoApp }

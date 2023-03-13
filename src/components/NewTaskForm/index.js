@@ -1,2 +1,2 @@
-import {NewTaskForm} from "./NewTaskForm";
-export {NewTaskForm}
+import { NewTaskForm } from './NewTaskForm'
+export { NewTaskForm }
