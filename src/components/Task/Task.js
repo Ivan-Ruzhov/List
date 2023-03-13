@@ -37,6 +37,7 @@ class Task extends Component {
   }
 
   render() {
+    console.log(new Date())
     const { completed, editing, id, text, onLabel, onDelete, onEdit } = this.props
     let className = ''
     if (completed) {
@@ -63,7 +64,7 @@ class Task extends Component {
             }}
           >
             <span className="description">{text}</span>
-            <span className="created">created {formatDistanceToNow(Date.now())}</span>
+            <span className="created"> created {formatDistanceToNow(new Date(), { includeSeconds: true })}</span>
           </label>
           <button
             className="icon icon-edit"
